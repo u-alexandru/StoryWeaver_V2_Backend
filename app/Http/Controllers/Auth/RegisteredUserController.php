@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
     {
         Log::debug($request->all());
         $request->validate([
-            'username' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'same:confirmPassword', Rules\Password::defaults()],
         ]);
