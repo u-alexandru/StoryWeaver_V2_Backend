@@ -4,18 +4,19 @@ namespace App\Models\Novels;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Genre extends Model
+class Chapter extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'novels_genres';
-
     protected $fillable = [
-        'name',
-        'description',
+        'title',
+        'content',
+        'author_notes',
+        'chapter_number',
+        'novel_id',
     ];
 
     protected $dates = [
@@ -24,8 +25,8 @@ class Genre extends Model
         'deleted_at'
     ];
 
-    public function novels(): BelongsToMany
+    public function novel(): BelongsTo
     {
-        return $this->belongsToMany(Novel::class);
+        return $this->belongsTo(Novel::class);
     }
 }

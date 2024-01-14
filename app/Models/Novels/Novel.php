@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -39,6 +40,17 @@ class Novel extends Model
     public function typology(): BelongsTo
     {
         return $this->belongsTo(Typology::class);
+    }
+
+    public function chapters(): HasMany
+    {
+        return $this->hasMany(Chapter::class);
+    }
+
+    // last chapter  by chapter number and not deleted
+    public function lastChapter(): HasOne
+    {
+        return $this->hasOne(Chapter::class)->orderBy('chapter_number', 'desc')->where('deleted_at', null);
     }
 
 }

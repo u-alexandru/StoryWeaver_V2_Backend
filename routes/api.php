@@ -23,6 +23,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'novels'], function () {
     Route::get('/test', function() {
-        return Novel::with('typology', 'genres', 'tags')->get();
+        return Novel::with('typology', 'genres', 'tags', 'chapters')->get();
     });
 });
