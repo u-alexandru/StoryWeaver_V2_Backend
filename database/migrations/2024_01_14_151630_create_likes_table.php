@@ -6,24 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->longText('content');
+        Schema::create('likes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->foreignId('user_id');
+            $table->morphs('likeable');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('likes');
     }
 };

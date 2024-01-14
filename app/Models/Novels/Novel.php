@@ -2,6 +2,8 @@
 
 namespace App\Models\Novels;
 
+use App\Contracts\Likeable;
+use App\Models\Concerns\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,9 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Novel extends Model
+class Novel extends Model implements Likeable
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Likes;
 
     protected $fillable = [
         'title',
@@ -53,4 +55,8 @@ class Novel extends Model
         return $this->hasOne(Chapter::class)->orderBy('chapter_number', 'desc')->where('deleted_at', null);
     }
 
+    public function chaptersCount(): int
+    {
+        return $this->chapters()->count();
+    }
 }

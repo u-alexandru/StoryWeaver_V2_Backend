@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('reviews_comments', function (Blueprint $table) {
             $table->id();
             $table->longText('content');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('reviews_comments');
     }
 };

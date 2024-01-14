@@ -9,16 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Termwind\Components\Li;
 
-class Comment extends Model implements Likeable
+class ReviewComment extends Model implements Likeable
 {
     use HasFactory, SoftDeletes, Likes;
 
     protected $fillable = [
         'content',
         'author_id',
-        'chapter_id'
+        'review_id',
+        'likes',
+        'dislikes',
     ];
 
     protected $dates = [
@@ -27,9 +28,9 @@ class Comment extends Model implements Likeable
         'deleted_at'
     ];
 
-    public function chapter(): BelongsTo
+    public function review(): BelongsTo
     {
-        return $this->belongsTo(Chapter::class);
+        return $this->belongsTo(Review::class);
     }
 
     public function author(): BelongsTo
