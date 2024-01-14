@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             NovelTagSeeder::class,
             NovelSeeder::class,
             NovelChapterSeeder::class,
+            CommentsSeeder::class,
         ]);
     }
 }

@@ -2,22 +2,22 @@
 
 namespace App\Models\Novels;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Chapter extends Model
+class Comment extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'title',
         'content',
-        'author_notes',
-        'chapter_number',
-        'novel_id',
+        'author_id',
+        'chapter_id',
+        'likes',
+        'dislikes',
     ];
 
     protected $dates = [
@@ -26,13 +26,13 @@ class Chapter extends Model
         'deleted_at'
     ];
 
-    public function novel(): BelongsTo
+    public function chapter(): BelongsTo
     {
-        return $this->belongsTo(Novel::class);
+        return $this->belongsTo(Chapter::class);
     }
 
-    public function comments(): HasMany
+    public function author(): BelongsTo
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(User::class);
     }
 }
