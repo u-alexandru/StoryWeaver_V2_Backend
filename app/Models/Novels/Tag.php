@@ -10,6 +10,8 @@ class Tag extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'novels_tags';
+
     protected $fillable = [
         'name',
         'description',

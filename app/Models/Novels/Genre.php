@@ -10,6 +10,8 @@ class Genre extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'novels_genres';
+
     protected $fillable = [
         'name',
         'description',

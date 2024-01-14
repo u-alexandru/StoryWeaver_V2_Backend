@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('novels_genres_pivot', function (Blueprint $table) {
+        Schema::create('novel_tag', function (Blueprint $table) {
             $table->unsignedBigInteger('novel_id');
-            $table->foreign('novel_id', 'novel_id_fk_6325323')->references('id')->on('novels');
-            $table->unsignedBigInteger('genre_id');
-            $table->foreign('genre_id', 'genre_id_fk_326345')->references('id')->on('novels_genres');
+            $table->foreign('novel_id', 'novel_id_fk_098732')->references('id')->on('novels');
+            $table->unsignedBigInteger('tag_id');
+            $table->foreign('tag_id', 'tag_id_fk_21324123')->references('id')->on('novels_tags');
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('novels_genres_pivot');
+        Schema::dropIfExists('novels_tags_pivot');
     }
 };

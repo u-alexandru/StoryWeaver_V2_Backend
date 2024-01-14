@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Novels\Novel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Create route group for novels
+
+Route::group(['prefix' => 'novels'], function () {
+    Route::get('/test', function() {
+        return Novel::with('typology', 'genres', 'tags')->get();
+    });
 });
