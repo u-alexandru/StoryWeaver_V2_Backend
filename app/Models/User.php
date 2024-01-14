@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Contracts\Reportable;
+use App\Models\Novels\Report;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -85,6 +87,22 @@ class User extends Authenticatable
         }
 
         return $likeable->likes()
+            ->whereHas('user', fn($q) =>  $q->whereId($this->id))
+            ->exists();
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function hasReported(Reportable $reportable): bool
+    {
+        if (! $reportable->exists) {
+            return false;
+        }
+
+        return $reportable->reports()
             ->whereHas('user', fn($q) =>  $q->whereId($this->id))
             ->exists();
     }

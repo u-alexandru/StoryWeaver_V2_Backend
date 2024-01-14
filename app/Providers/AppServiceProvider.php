@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\Reportable;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\Likeable;
 use App\Models\User;
@@ -44,6 +45,18 @@ class AppServiceProvider extends ServiceProvider
 
             if (! $user->hasLiked($likeable)) {
                 return Response::deny("Cannot unlike without liking first");
+            }
+
+            return Response::allow();
+        });
+
+        Gate::define('report', function (User $user, Reportable $reportable) {
+            if (! $reportable->exists) {
+                return Response::deny("Cannot report an object that doesn't exists");
+            }
+
+            if ($user->hasReported($reportable)) {
+                return Response::deny("Cannot report the same thing twice");
             }
 
             return Response::allow();

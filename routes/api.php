@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Novels\LikeController;
+use App\Http\Controllers\API\Novels\ReportController;
 use App\Models\Novels\Novel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,13 +32,14 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('like', [LikeController::class, 'like'])->name('like');
     Route::delete('like', [LikeController::class, 'unlike'])->name('unlike');
+    Route::post('/report', [ReportController::class, 'report'])->name('report');
 });
 
 // Create route group for novels
 
 Route::group(['prefix' => 'novels'], function () {
     Route::get('/test', function() {
-        $novel = Novel::with('typology', 'genres', 'tags', 'chapters', 'chapters.comments', 'likes')->get()->first();
+        $novel = Novel::with('typology', 'genres', 'tags', 'chapters', 'chapters.comments', 'likes', 'reports')->get()->first();
         return $novel;
     });
 });
