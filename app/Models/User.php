@@ -6,6 +6,10 @@ namespace App\Models;
 use App\Contracts\Reportable;
 use App\Models\Novels\Report;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,7 +19,7 @@ use App\Models\Novels\Like;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -48,7 +52,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function likes()
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->roles()->where('id', Role::ADMIN)->exists();
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }

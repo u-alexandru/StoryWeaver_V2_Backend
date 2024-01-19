@@ -10,11 +10,14 @@ use App\Http\Requests\UnlikeRequest;
 use App\Models\Novels\Report;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class ReportController extends Controller
 {
     public function report(ReportRequest $request): JsonResponse
     {
+        abort_if(Gate::denies('create-novel'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $user = $request->user();
 
         if ($user->hasReported($request->reportable())) {

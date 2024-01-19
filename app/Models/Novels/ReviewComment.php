@@ -3,16 +3,18 @@
 namespace App\Models\Novels;
 
 use App\Contracts\Likeable;
+use App\Contracts\Reportable;
 use App\Models\Concerns\Likes;
+use App\Models\Concerns\Reports;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ReviewComment extends Model implements Likeable
+class ReviewComment extends Model implements Likeable, Reportable
 {
-    use HasFactory, SoftDeletes, Likes;
+    use HasFactory, SoftDeletes, Likes, Reports;
 
     protected $fillable = [
         'content',

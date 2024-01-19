@@ -30,7 +30,7 @@ class NovelSeeder extends Seeder
                 'title' => 'Book of Ra',
                 'description' => 'The world is at its zenith, the sands are getting closer.',
                 'author_notes' => 'I am writing this book in my free time!',
-                'typology_id' => 3
+                'typology_id' => 1
             ]
         ];
 
