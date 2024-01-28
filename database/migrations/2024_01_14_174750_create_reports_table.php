@@ -6,25 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('novels_genres', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+        Schema::create('reports', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('reason');
             $table->text('description');
+            $table->morphs('reportable');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('novels_genres');
+        Schema::dropIfExists('reports');
     }
 };

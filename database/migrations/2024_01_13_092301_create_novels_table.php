@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('novels', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->longText('description');
-            $table->longText('author_notes')->nullable();
+            $table->text('description');
+            $table->text('author_notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
