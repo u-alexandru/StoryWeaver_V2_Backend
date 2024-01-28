@@ -50,9 +50,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Create route group for novels
 
-Route::group(['prefix' => 'novels'], function () {
-    Route::get('/test', function() {
-        $novel = Novel::with('typology', 'genres', 'tags', 'chapters', 'chapters.comments', 'likes', 'reports')->get()->first();
-        return $novel;
+Route::group(['prefix' => 'novels', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('/test-novel', function() {
+        $novels = Novel::with('typology', 'genres', 'tags', 'chapters', 'chapters.comments', 'likes', 'reports')->get();
+        return $novels;
     });
 });
