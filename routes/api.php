@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,15 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// get admin permanent token
-Route::get('/sanctum/token', function (Request $request) {
-    $user = User::find(1);
-    $token = $user->createToken('admin-token');
-    return $token->plainTextToken;
-});
-
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+// create route to check if user is authenticated
+Route::middleware('throttle:30,1')->get('user-authenticated', function (Request $request) {
+    Log::debug('User authenticated', ['user' => $request->user()]);
+    return response()->json(['authenticated' => (bool)$request->user()]);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
