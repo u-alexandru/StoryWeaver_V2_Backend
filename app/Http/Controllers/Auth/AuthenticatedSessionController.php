@@ -30,6 +30,14 @@ class AuthenticatedSessionController extends Controller
 
     }
 
+    public function passkeyAuth(Request $request): JsonResponse
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+        return '';
+    }
+
     /**
      * Destroy an authenticated session.
      */
