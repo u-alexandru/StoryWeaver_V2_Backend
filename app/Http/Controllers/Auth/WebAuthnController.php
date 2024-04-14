@@ -1,15 +1,15 @@
 <?php
 
-namespace Ungureanu\SimpleLaravelWebauthn\controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Services\WebAuthnService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Ungureanu\SimpleLaravelWebauthn\WebAuthn;
 
-class WebauthnRegisterController
+class WebAuthnController
 {
-    public function register(WebAuthn $webauthn, Request $request)
+    public function register(WebAuthnService $webauthn, Request $request)
     {
         $request->validate([
             'username' => 'required|email',
@@ -25,7 +25,7 @@ class WebauthnRegisterController
         return response()->json($webauthn->getPublicKeyCredentialCreationOptions($request->username));
     }
 
-    public function login(WebAuthn $webauthn)
+    public function login(WebAuthnService $webauthn)
     {
         return response()->json($webauthn->getPublicKeyCredentialRequestOptions());
     }

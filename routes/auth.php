@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\WebAuthnController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -38,4 +39,16 @@ Route::group([
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware('auth')
         ->name('logout');
+
+    Route::group([
+        'prefix' => '/webauthn',
+    ], function () {
+        Route::post('/register', [WebAuthnController::class, 'register'])
+            ->middleware('guest')
+            ->name('webauthn.register');
+
+        Route::get('/login', [WebAuthnController::class, 'login'])
+            ->middleware('guest')
+            ->name('webauthn.login');
+    });
 });

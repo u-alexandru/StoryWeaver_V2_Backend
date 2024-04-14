@@ -1,9 +1,10 @@
 <?php
 
-namespace Ungureanu\SimpleLaravelWebauthn\models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ungureanu\SimpleLaravelWebauthn\models\User;
 
 class Credentials extends Model
 {

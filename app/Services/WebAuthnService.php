@@ -1,6 +1,6 @@
 <?php
-namespace Ungureanu\SimpleLaravelWebauthn;
-class WebAuthn
+namespace App\Services;
+class WebAuthnService
 {
     public function __construct()
     {
