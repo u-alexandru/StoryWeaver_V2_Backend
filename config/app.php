@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-use Ungureanu\SimpleLaravelWebauthn\Providers\SimpleLaravelWebauthnServiceProvider;
 
 return [
 
@@ -170,8 +169,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        SimpleLaravelWebauthnServiceProvider::class,
+        App\Providers\RouteServiceProvider::class
     ])->toArray(),
 
     /*
